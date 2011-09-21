@@ -1,20 +1,57 @@
 package org.knott.kadavr;
 
+import java.io.File;
+import org.knott.kadavr.metadata.KClass;
+import org.knott.kadavr.metadata.Method;
+
 /**
- * Hello world!
- *
+ * @author Sergey Shulepov
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    
+    private CLIOpts opts;
+    
+    public App(CLIOpts opts) {
+        this.opts = opts;
     }
     
-    public int fact(int n) {
-        if (n <= 1) return 1;
-        else {
-            return fact(n - 1) * n;
+    protected void processEach() {
+        // Перемолоть аргументы.
+        String[] inputFiles = opts.getInputFiles();
+        for (String input : inputFiles) {
+            process(input);
         }
     }
+    
+    protected void process(String input) {
+        KClass cl = loadClass(input);
+        Method[] methods = cl.getMethodTable();
+        
+        for (Method method : methods) {
+            System.out.println(method.getFullName());
+        }
+    }
+    
+    protected KClass loadClass(String file) {
+        return ClassLoader.loadClass(file);
+    }
+    
+    /**
+     * 
+     * @param args Аргументы коммандерй строки.
+     */
+    public static void main(String[] args) {
+        // Нужно сделать:
+        // 1. Узнать какой файл.
+        // 2. Открыть файл
+        // 3. Считать его.
+        // 4. Обработать.
+        // 5. Вывести результат.
+        CLIOpts opts = new CLIOpts();
+        opts.setArgs(args);
+        opts.parse();
+        
+        App app = new App(opts);
+        app.processEach();
+    }    
 }

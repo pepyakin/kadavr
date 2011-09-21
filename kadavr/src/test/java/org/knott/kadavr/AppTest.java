@@ -1,42 +1,63 @@
 package org.knott.kadavr;
 
-import junit.framework.Test;
+import org.knott.kadavr.metadata.KClass;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.knott.kadavr.metadata.Method;
+import static org.mockito.Mockito.*;
 
 /**
- * Unit test for simple App.
+ * Тестирование класса приложения.
  */
 public class AppTest 
     extends TestCase
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {   
-        App app = new App();
+    
+    
+    class MyApp extends org.knott.kadavr.App {
+        MyApp(CLIOpts opts) { super(opts); }
         
-        assertEquals(1 * 2 * 3, app.fact(3));
-        assertEquals(1 * 2 * 3 * 4 * 5, app.fact(5));
+        @Override
+        protected KClass loadClass(String file) {
+            return mockClass;
+        }
+    }
+    
+    private KClass mockClass;
+    
+    @Override
+    public void setUp() {
+        Method mockMethod = mock(Method.class);
+        when(mockMethod.getFullName()).thenReturn(
+                "java/lang/String#toString!()V");
+
+        mockClass = mock(KClass.class);
+        when(mockClass.getMethodTable()).thenReturn(new Method[] { mockMethod });
+    }
+    
+    /**
+     * Протестировать процессинг.
+     */
+    public void testTwoFiles() {
+        CLIOpts opts = mock(CLIOpts.class);
+        when(opts.getInputFiles()).thenReturn(
+                new String[] { "Hello.class", "Main.class" } );
+        when(opts.getInputCount()).thenReturn(2);
         
+        MyApp app = new MyApp(opts);
+        app.processEach();
+    }
+    
+    /**
+     * Протестировать процессинг.
+     */
+    public void testZeroFiles() {
+        CLIOpts opts = mock(CLIOpts.class);
+        when(opts.getInputFiles()).thenReturn(
+                new String[] { } );
+        when(opts.getInputCount()).thenReturn(0);
+        
+        MyApp app = new MyApp(opts);
+        app.processEach();
     }
 }
