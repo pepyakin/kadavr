@@ -33,7 +33,7 @@ public abstract class ConstItem {
      * @param <C> Конкретный класс, потомок {@link ConstItem},
      * экземпляр которого типа создаёт данный билдер.
      */
-    static abstract class Reader<C extends ConstItem> {
+    public static abstract class Reader<C extends ConstItem> {
 
         protected abstract C readItem(ClassFileReader dis) throws IOException;
 

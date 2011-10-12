@@ -1,5 +1,8 @@
 package org.knott.kadavr.metadata;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,6 +35,18 @@ public class ConstPool {
     
     private List<ConstItem> constPool;
     
+    public ConstPool() {
+        // Неизвестное число элементов. Лучший вариант
+        // использовать связанный список.
+        constPool = new LinkedList<ConstItem>();
+    }
+    
+    public ConstPool(int countHint) {
+        // Количество элементов известно, используем
+        // массивный список.
+        constPool = new ArrayList<ConstItem>(countHint);
+    }
+    
     /**
      * Вернуть элемент константного пула с 
      * заданным индексом.
@@ -39,21 +54,21 @@ public class ConstPool {
      * @return Экземпляр элемента.
      */
     public Utf8Item getUtf(int index) {
-        return (Utf8Item)get(index);
+        return get(index);
     }
     
     public NameTypeItem getNameAndType(int index) {
-        return (NameTypeItem)get(index);
+        return get(index);
     }
     
     public ClassItem getClass(int index) {
-        return (ClassItem)get(index);
+        return get(index);
     }
     
-    public ConstItem get(int index) {
+    public <T extends ConstItem> T get(int index) {
         // TODO: проверить индекс.
         
-        return constPool.get(index + 1);
+        return (T)constPool.get(index + 1);
     }
 
     /**
@@ -66,16 +81,40 @@ public class ConstPool {
     }
     
     /**
-     * 
+     * Инициировать процесс связывания. Процесс связывания
+     * происходит после завершения считывания.
      */
     public void link() {
-        // Интересность в том, что для процесса
-        // связывания нужно гарантировать, что все элементы
-        // уже считанны.
-        
-        for (int i = 0; i < size(); i++) {
-            ConstItem item = get(i);
-            item.link(this);
+        for (ConstItem constItem : constPool) {
+            constItem.link(this);
         }
+    }
+    
+    public static ConstPool read(ItemDispatcher dispatcher, ClassFileReader dis) 
+            throws IOException {
+        ConstPool pool;
+        
+        // ClassFile {
+        //   .. 
+        //   u2 constant_pool_count;
+    	//   cp_info constant_pool[constant_pool_count-1];
+        //   ..
+        // }
+        
+        int len = dis.readU2();
+        pool = new ConstPool(len);
+        
+        for (int i = 0; i < len; i++) {
+            // Заголовок каждой записи - тег.
+            // Считываем его и получаем соответсвующий ридер.
+            int tag = dis.readU1();
+            ConstItem.Reader<? extends ConstItem> reader = 
+                    dispatcher.dispatch(tag);
+            
+            ConstItem item = reader.readItem(dis);
+            pool.constPool.add(item);
+        }
+        
+        return pool;
     }
 }
