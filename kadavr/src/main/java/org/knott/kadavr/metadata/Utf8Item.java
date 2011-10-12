@@ -31,38 +31,15 @@ public class Utf8Item extends ConstItem {
     public String get() {
         return item;
     }
-    
-    /**
-     * Считыватель для {@link Utf8Item}.
-     */
-    class Utf8Reader extends ConstItem.Reader<Utf8Item> {
 
-        @Override
-        protected Utf8Item readItem(ClassFileReader dis) 
-                throws IOException {
-            Utf8Item utf8 = new Utf8Item();
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        int len = dis.readU2();
+        byte[] bytes = new byte[len];
             
-            // CONSTANT_Utf8_info {
-            //     u1 tag;
-            //     u2 length;
-            //     u1 bytes[length];
-            // }
+        dis.read(bytes);
             
-            // Прочитать целое означающее длину строки.
-            int len = dis.readU2();
-            byte[] bytes = new byte[len];
-            
-            dis.read(bytes);
-            
-            // И создать соответствующую строку.
-            utf8.item = new String(bytes);
-            
-            return utf8;
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
+        // И создать соответствующую строку.
+        item = new String(bytes);
     }
 }

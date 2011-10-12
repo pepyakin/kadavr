@@ -20,26 +20,9 @@ public class IntegerItem extends ConstItem {
     public int getTag() {
         return TAG;
     }
-    
-    static class IntegerReader extends Reader<IntegerItem> {
 
-        @Override
-        protected IntegerItem readItem(ClassFileReader dis) throws IOException {
-            IntegerItem item = new IntegerItem();
-            
-            // CONSTANT_Integer_info {
-            //	u1 tag;
-    	    //  u4 bytes;
-            // }
-            
-            item.value = dis.readInt();
-            
-            return item;
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        value = dis.readInt();
     }
 }

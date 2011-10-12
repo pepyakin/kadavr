@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -108,10 +110,19 @@ public class ConstPool {
             // Заголовок каждой записи - тег.
             // Считываем его и получаем соответсвующий ридер.
             int tag = dis.readU1();
-            ConstItem.Reader<? extends ConstItem> reader = 
+            Class<? extends ConstItem> proto = 
                     dispatcher.dispatch(tag);
             
-            ConstItem item = reader.readItem(dis);
+            ConstItem item;
+            try {
+                item = proto.newInstance();
+                item.read(dis);
+            } catch (InstantiationException ex) {
+                throw new RuntimeException(ex);
+            } catch (IllegalAccessException ex) {
+                throw new RuntimeException(ex);
+            }
+            
             pool.constPool.add(item);
         }
         

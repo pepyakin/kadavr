@@ -42,29 +42,10 @@ public class NameTypeItem extends ConstItem {
         
         return name;
     }
-    
-    class NameTypeReader extends Reader<NameTypeItem> {
 
-        @Override
-        protected NameTypeItem readItem(ClassFileReader dis) 
-                throws IOException {
-            // CONSTANT_NameAndType_info {
-            //   u1 tag;
-            //   u2 name_index;
-            //   u2 descriptor_index;
-            // }
-            
-            NameTypeItem item = new NameTypeItem();
-            
-            item.nameIndex = dis.readU2();
-            item.descIndex = dis.readU2();
-            
-            return item;
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        nameIndex = dis.readU2();
+        descIndex = dis.readU2();
     }
 }

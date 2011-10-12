@@ -11,16 +11,4 @@ public class IMethodrefItem extends MemberItem {
     public IMethodrefItem() {
         super(TAG);
     }
-    
-    static class IMethodrefReader extends RefReader<IMethodrefItem> {
-
-        public IMethodrefReader() {
-            super(TAG);
-        }
-        
-        @Override
-        protected IMethodrefItem getDummy() {
-            return new IMethodrefItem();
-        }
-    }
 }

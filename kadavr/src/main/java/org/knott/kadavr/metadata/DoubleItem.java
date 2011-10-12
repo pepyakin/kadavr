@@ -20,26 +20,10 @@ public class DoubleItem extends ConstItem {
     public int getTag() {
         return TAG;
     }
-    
-    static class DoubleReader extends Reader<DoubleItem> {
 
-        @Override
-        protected DoubleItem readItem(ClassFileReader dis) throws IOException {
-            DoubleItem item = new DoubleItem();
-            
-            // CONSTANT_Double_info {
-    	    //  u1 tag;
-    	    //  u4 high_bytes;
-    	    //  u4 low_bytes;
-            // }
-            item.value = dis.readDouble();
-            
-            return item;            
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        value = dis.readDouble();
     }
+ 
 }

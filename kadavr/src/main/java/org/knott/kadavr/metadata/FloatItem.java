@@ -20,26 +20,9 @@ public class FloatItem extends ConstItem {
     public int getTag() {
         return TAG;
     }
-    
-    static class FloatReader extends Reader<FloatItem> {
 
-        @Override
-        protected FloatItem readItem(ClassFileReader dis) throws IOException {
-            FloatItem item = new FloatItem();
-            
-            // CONSTANT_Float_info {
-            //	u1 tag;
-    	    //  u4 bytes;
-            // }
-            item.value = dis.readFloat();
-            
-            return item;
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
-        
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        value = dis.readFloat();
     }
 }

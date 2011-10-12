@@ -10,16 +10,4 @@ public class FieldrefItem extends MemberItem {
     public FieldrefItem() {
         super(TAG);
     }
-    
-    class FieldrefReader extends RefReader<FieldrefItem> {
-
-        public FieldrefReader() {
-            super(TAG);
-        }
-
-        @Override
-        protected FieldrefItem getDummy() {
-            return new FieldrefItem();
-        }
-    }
 }

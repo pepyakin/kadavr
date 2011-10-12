@@ -38,27 +38,9 @@ public class StringItem extends ConstItem {
     public int getTag() {
         return TAG;
     }
-    
-    class StringReader extends Reader<StringItem> {
 
-        @Override
-        protected StringItem readItem(ClassFileReader dis) 
-                throws IOException {
-            StringItem item = new StringItem();
-            
-            // CONSTANT_String_info {
-    	    //   u1 tag;
-    	    //   u2 string_index;
-            // }
-            
-            item.stringIndex = dis.readU2();
-            
-            return item;
-        }
-
-        @Override
-        int getTag() {
-            return TAG;
-        }
+    @Override
+    protected void read(ClassFileReader dis) throws IOException {
+        stringIndex = dis.readU2();
     }
 }
