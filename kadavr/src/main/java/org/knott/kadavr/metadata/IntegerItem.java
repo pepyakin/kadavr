@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Sergey
  */
-public class IntegerItem extends ConstItem {
+public class IntegerItem extends ConstValueItem {
 
     public static final int TAG = ConstPool.TAG_INTEGER;
     

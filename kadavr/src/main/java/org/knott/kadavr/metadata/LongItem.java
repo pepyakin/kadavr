@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Sergey
  */
-public class LongItem extends ConstItem {
+public class LongItem extends ConstValueItem {
 
     public static final int TAG = ConstPool.TAG_LONG;
     

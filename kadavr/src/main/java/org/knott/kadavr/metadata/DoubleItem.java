@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Sergey
  */
-public class DoubleItem extends ConstItem {
+public class DoubleItem extends ConstValueItem {
     
     public static final int TAG = ConstPool.TAG_DOUBLE;
     

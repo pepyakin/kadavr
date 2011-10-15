@@ -70,7 +70,7 @@ public class ConstPool {
     public <T extends ConstItem> T get(int index) {
         // TODO: проверить индекс.
         
-        return (T)constPool.get(index + 1);
+        return (T)constPool.get(index - 1);
     }
 
     /**
@@ -106,7 +106,7 @@ public class ConstPool {
         int len = dis.readU2();
         pool = new ConstPool(len);
         
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len - 1; i++) {
             // Заголовок каждой записи - тег.
             // Считываем его и получаем соответсвующий ридер.
             int tag = dis.readU1();

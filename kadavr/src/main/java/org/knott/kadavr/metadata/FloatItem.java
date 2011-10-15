@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Sergey
  */
-public class FloatItem extends ConstItem {
+public class FloatItem extends ConstValueItem {
     
     public static final int TAG = ConstPool.TAG_FLOAT;
 
