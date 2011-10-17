@@ -6,4 +6,5 @@ package org.knott.kadavr.metadata;
  */
 public abstract class ConstValueItem extends ConstItem {
     
+    public abstract String getValueString();
 }

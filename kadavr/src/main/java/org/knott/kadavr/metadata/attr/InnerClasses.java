@@ -11,6 +11,7 @@ import org.knott.kadavr.metadata.Utf8Item;
  * @author Sergey
  */
 public class InnerClasses extends Attribute {
+    public static final String NAME = "InnerClasses";
 
     private InnerClass[] inners;
     
@@ -40,7 +41,7 @@ public class InnerClasses extends Attribute {
 
     @Override
     public String getName() {
-        return "InnerClasses";
+        return NAME;
     }
     
     public class InnerClass {

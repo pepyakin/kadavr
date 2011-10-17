@@ -25,4 +25,9 @@ public class LongItem extends ConstValueItem {
     protected void read(ClassFileReader dis) throws IOException {
         value = dis.readLong();
     }
+
+    @Override
+    public String getValueString() {
+        return Long.toString(value);
+    }
 }

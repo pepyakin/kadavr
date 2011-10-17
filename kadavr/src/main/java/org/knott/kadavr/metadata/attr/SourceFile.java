@@ -11,6 +11,11 @@ import org.knott.kadavr.metadata.Utf8Item;
  */
 public class SourceFile extends Attribute {
 
+    /**
+     * Имя данного аттрибута.
+     */
+    public static final String NAME = "SourceFile";
+    
     private Utf8Item name;
 
     /**
@@ -29,7 +34,6 @@ public class SourceFile extends Attribute {
 
     @Override
     public String getName() {
-        return "SourceFile";
+        return NAME;
     }
-    
 }

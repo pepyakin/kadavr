@@ -9,6 +9,7 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author Sergey
  */
 public class Deprecated extends Attribute {
+    public static final String NAME = "Deprecated";
 
     @Override
     public void read(ConstPool pool, ClassFileReader dis) 
@@ -17,6 +18,6 @@ public class Deprecated extends Attribute {
 
     @Override
     public String getName() {
-        return "Deprecated";
+        return NAME;
     }
 }

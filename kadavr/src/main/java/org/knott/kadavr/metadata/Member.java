@@ -3,6 +3,7 @@ package org.knott.kadavr.metadata;
 import java.io.IOException;
 import org.knott.kadavr.metadata.attr.Attribute;
 import org.knott.kadavr.metadata.attr.AttributeReader;
+import org.knott.kadavr.metadata.attr.Attributes;
 
 /**
  *
@@ -15,7 +16,7 @@ public abstract class Member {
     protected Utf8Item name;
     protected Utf8Item descriptor;
     
-    protected Attribute[] attributes;
+    protected Attributes attributes;
 
     /**
      * Возвратить флаги доступа к
@@ -42,12 +43,8 @@ public abstract class Member {
         return name.get();
     }
     
-    public int getAttributeCount() {
-        return attributes.length;
-    }
-    
-    public Attribute getAttribute(int i) {
-        return attributes[i];
+    public Attributes getAttributes() {
+        return attributes;
     }
     
     /**

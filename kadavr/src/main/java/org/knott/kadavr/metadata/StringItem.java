@@ -43,4 +43,14 @@ public class StringItem extends ConstValueItem {
     protected void read(ClassFileReader dis) throws IOException {
         stringIndex = dis.readU2();
     }
+
+    @Override
+    public String getValueString() {
+        String value = getUtf8().get();
+        StringBuilder sb = new StringBuilder(value.length() + 2);
+        sb.append('"');
+        sb.append(value);
+        sb.append('"');
+        return sb.toString();
+    }
 }

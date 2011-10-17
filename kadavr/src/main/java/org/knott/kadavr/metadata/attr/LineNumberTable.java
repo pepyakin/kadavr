@@ -9,6 +9,7 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author Sergey
  */
 public class LineNumberTable extends Attribute {
+    public static final String NAME = "LineNumberTable";
 
     private LineNumber[] lineMap;
     
@@ -43,7 +44,7 @@ public class LineNumberTable extends Attribute {
 
     @Override
     public String getName() {
-        return "LineNumberTable";
+        return NAME;
     }
 
     public static class LineNumber {

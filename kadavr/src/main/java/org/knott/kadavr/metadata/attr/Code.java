@@ -10,11 +10,12 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author Sergey
  */
 public class Code extends Attribute {
+    public static final String NAME = "Code";
 
     private int maxLocals, maxStack;
     private byte[] code;
     private ExceptionEntry[] exceptions;
-    private Attribute[] attributes;
+    private Attributes attributes;
 
     /**
      * Возвратить массив с байткодом
@@ -63,11 +64,11 @@ public class Code extends Attribute {
     }
     
     public int getAttributeCount() {
-        return attributes.length;
+        return attributes.size();
     }
     
     public Attribute get(int i) {
-        return attributes[i];
+        return attributes.get(i);
     }
     
     @Override
@@ -113,7 +114,7 @@ public class Code extends Attribute {
 
     @Override
     public String getName() {
-        return "Code";
+        return NAME;
     }
     
     /**

@@ -10,6 +10,11 @@ import org.knott.kadavr.metadata.ConstPool;
  */
 public class Synthetic extends Attribute {
 
+    /**
+     * Имя данного аттрибута.
+     */
+    public static final String NAME = "Synthetic";
+    
     @Override
     public void read(ConstPool pool, ClassFileReader dis) 
             throws IOException {
@@ -18,7 +23,7 @@ public class Synthetic extends Attribute {
 
     @Override
     public String getName() {
-        return "Synthetic";
+        return NAME;
     }
     
 }

@@ -10,6 +10,7 @@ import org.knott.kadavr.metadata.ConstValueItem;
  * @author Sergey
  */
 public class ConstantValue extends Attribute {
+    public static final String NAME = "ConstantValue";
 
     private ConstValueItem item;
 
@@ -26,6 +27,6 @@ public class ConstantValue extends Attribute {
 
     @Override
     public String getName() {
-        return "ConstantValue";
+        return NAME;
     }
 }

@@ -25,4 +25,9 @@ public class FloatItem extends ConstValueItem {
     protected void read(ClassFileReader dis) throws IOException {
         value = dis.readFloat();
     }
+
+    @Override
+    public String getValueString() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

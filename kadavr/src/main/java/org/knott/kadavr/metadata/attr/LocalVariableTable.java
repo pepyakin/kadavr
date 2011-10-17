@@ -10,6 +10,8 @@ import org.knott.kadavr.metadata.Utf8Item;
  * @author Sergey
  */
 public class LocalVariableTable extends Attribute {
+    
+    public static final String NAME = "LocalVariableTable";
 
     private Local[] locals;
     
@@ -39,7 +41,7 @@ public class LocalVariableTable extends Attribute {
 
     @Override
     public String getName() {
-        return "LocalVariableTable";
+        return NAME;
     }
     
     public static class Local {

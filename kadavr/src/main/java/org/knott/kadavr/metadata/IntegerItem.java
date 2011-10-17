@@ -25,4 +25,9 @@ public class IntegerItem extends ConstValueItem {
     protected void read(ClassFileReader dis) throws IOException {
         value = dis.readInt();
     }
+
+    @Override
+    public String getValueString() {
+        return Integer.toString(value);
+    }
 }

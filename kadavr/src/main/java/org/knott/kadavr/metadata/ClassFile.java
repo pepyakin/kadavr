@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import org.knott.kadavr.metadata.attr.Attribute;
 import org.knott.kadavr.metadata.attr.AttributeReader;
+import org.knott.kadavr.metadata.attr.Attributes;
 
 /**
  *
@@ -26,14 +27,15 @@ public class ClassFile {
     
     private Field[] fields;
     private Method[] methods;
-    private Attribute[] attributes;
+    private Attributes attributes;
 
     public int getAccessFlags() {
         return accessFlags;
     }
 
-    public List<Attribute> getAttributes() {
-        return Collections.unmodifiableList(Arrays.asList(attributes));
+    public Attributes getAttributes() {
+        //return Collections.unmodifiableList(attributes);
+        return attributes;
     }
 
     public List<Field> getFields() {
@@ -68,6 +70,17 @@ public class ClassFile {
         return thisClass;
     }
     
+    public String getName() {
+        return thisClass.getName().get();
+    }
+    
+    public String getSuperName() {
+        if (superClass == null)
+            return null;
+        
+        return superClass.getName().get();
+    }
+    
     public void read(InputStream stream) 
             throws IOException {
         ClassFileReader dis = new ClassFileReader(stream);
@@ -88,8 +101,14 @@ public class ClassFile {
         // Считать флаги доступа.
         accessFlags = dis.readU2();
         
+        // Считать инфу о данном и базовом классе.
         thisClass = pool.getClass(dis.readU2());
-        superClass = pool.getClass(dis.readU2());
+        int superIdx = dis.readU2();
+        if (superIdx != 0) {
+            // Базовый класс может быть 0 в
+            // случае с java/lang/Object.
+            superClass = pool.getClass(superIdx);
+        }
         
         // Считать какие интерфейсы определяет данный 
         int ifaceCount = dis.readU2();

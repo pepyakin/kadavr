@@ -10,6 +10,7 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author Sergey
  */
 public class Exceptions extends Attribute {
+    public static final String NAME = "Exceptions";
 
     private ClassItem[] exceptions;
     
@@ -43,6 +44,6 @@ public class Exceptions extends Attribute {
 
     @Override
     public String getName() {
-        return "Exceptions";
+        return NAME;
     }
 }

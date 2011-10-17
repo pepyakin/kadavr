@@ -25,5 +25,9 @@ public class DoubleItem extends ConstValueItem {
     protected void read(ClassFileReader dis) throws IOException {
         value = dis.readDouble();
     }
- 
+
+    @Override
+    public String getValueString() {
+        return Double.toString(value);
+    }
 }

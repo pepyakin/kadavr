@@ -2,6 +2,7 @@ package org.knott.kadavr.metadata.attr;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.knott.kadavr.metadata.ClassFileReader;
@@ -27,7 +28,7 @@ public class AttributeReader {
         addDefaultMapping();
     }
     
-    public Attribute[] read(ClassFileReader dis) 
+    public Attributes read(ClassFileReader dis) 
             throws IOException {
         //    .. 
         //    u2 attributes_count;
@@ -69,7 +70,7 @@ public class AttributeReader {
             attrs[i] = attribute;
         }
         
-        return attrs;
+        return new Attributes(Arrays.asList(attrs));
     }
     
     /**
