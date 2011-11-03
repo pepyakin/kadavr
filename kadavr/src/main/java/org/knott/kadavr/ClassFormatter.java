@@ -1,7 +1,6 @@
 package org.knott.kadavr;
 
 import java.io.IOException;
-import org.omg.PortableServer.IdAssignmentPolicy;
 
 /**
  *

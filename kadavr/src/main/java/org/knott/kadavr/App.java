@@ -3,6 +3,7 @@ package org.knott.kadavr;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import org.knott.kadavr.metadata.ClassFile;
+import org.knott.kadavr.tools.Opcode;
 
 /**
  *

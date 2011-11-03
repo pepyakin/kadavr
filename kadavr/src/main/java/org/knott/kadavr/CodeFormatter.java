@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 /**
- *
+ * Классы потомки не являются потокобезопасными.
  * @author Sergey
  */
 public class CodeFormatter {
@@ -33,7 +33,7 @@ public class CodeFormatter {
     }
 
     /**
-     * Установит райтер.
+     * Установить райтер.
      * @param writer 
      */
     public void setWriter(IdentTextWriter writer) {

@@ -63,12 +63,8 @@ public class Code extends Attribute {
         return exceptions[i];
     }
     
-    public int getAttributeCount() {
-        return attributes.size();
-    }
-    
-    public Attribute get(int i) {
-        return attributes.get(i);
+    public Attributes getAttributes() {
+        return attributes;
     }
     
     @Override
