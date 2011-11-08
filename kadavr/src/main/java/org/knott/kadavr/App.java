@@ -2,6 +2,7 @@ package org.knott.kadavr;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import org.knott.kadavr.metadata.ClassFile;
 import org.knott.kadavr.tools.Opcode;
 
@@ -9,7 +10,7 @@ import org.knott.kadavr.tools.Opcode;
  *
  * @author Sergey
  */
-public class App {
+public class App implements Serializable {
     
     private static final String PREFIX = "target/classes/";
     
@@ -27,8 +28,8 @@ public class App {
         
         ClassFile c = ClassFile.fromFile(PREFIX + "org/knott/kadavr/App.class");
         
-        ClassDisasm disasm = new ClassDisasm(new ClassFormatter(writer), c);
-        disasm.parse();
+        Disassembler dis = new Disassembler(writer, c);
+        dis.disassemble();
         writer.flush();
     }
 }

@@ -2,6 +2,7 @@ package org.knott.kadavr;
 
 import java.io.IOException;
 import org.knott.kadavr.metadata.ClassFile;
+import org.knott.kadavr.metadata.ClassItem;
 import org.knott.kadavr.metadata.attr.*;
 
 /**
@@ -91,13 +92,18 @@ public class ClassDisasm {
             // TODO: Посмотреть сюда.
             // Иначе, желательно добавить 
             // .source outputfile.J
-            formatter.writeSource(source.getName());
+            formatter.writeSource(source.getSourceFile().get());
         }
         
         formatter.writeClass(classFile.getAccessFlags(), classFile.getName());
        
         String superName = classFile.getSuperName();
         formatter.writeSuper(superName);
+        
+        for (ClassItem iface : classFile.getInterfaces()) {
+            formatter.writeImplements(iface.getName().get());
+        }
+        
         formatter.newline();
     }
 }

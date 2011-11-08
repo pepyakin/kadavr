@@ -30,4 +30,22 @@ public class BytecodeFormatter
         writeLabel(labelGen.genLabelName(pc) + ":");
         whitespace();
     }
+    
+    public void writeLimitStack(int limit) throws IOException {
+        writeDirective(".limit");
+        whitespace();
+        writeDirective("stack");
+        whitespace();
+        writeIntermediate(limit);
+        newline();
+    }
+    
+    public void writeLimitLocals(int limit) throws IOException {
+        writeDirective(".limit");
+        whitespace();
+        writeDirective("locals");
+        whitespace();
+        writeIntermediate(limit);
+        newline();
+    }
 }

@@ -74,6 +74,10 @@ public class CodeFormatter {
     public void setIdentLevel(int level) {
         writer.setIdentLevel(level);
     }
+    
+    public void writeIntermediate(Number value) throws IOException {
+        writer.write(value.toString());
+    }
 
     public void incIdent() {
         writer.incIdent();

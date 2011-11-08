@@ -41,11 +41,15 @@ public class MethodFormatter extends CodeFormatter {
         writeIdentifier(name);
         writeIdentifier(descriptor);
         newline();
+        pushIdent();
+        setIdentLevel(1);
     }
     
     public void endMethod() 
             throws IOException {
+        popIdent();
         writeDirective(".end method");
+        newline();
         newline();
     }
 }

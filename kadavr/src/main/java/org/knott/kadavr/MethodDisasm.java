@@ -44,7 +44,7 @@ public class MethodDisasm {
     /**
      * Разобрать текущий метод
      */
-    public void parse() 
+    public void beginParse() 
             throws IOException {
         if (method == null) {
             throw new NullPointerException("method can't be null");
@@ -58,9 +58,9 @@ public class MethodDisasm {
                 method.getAccessFlags(), 
                 method.getName(),
                 method.getDescriptor());
-        
-        // TODO: do stuuffff
-        
+    }
+    
+    public void endParse() throws IOException {
         formatter.endMethod();
     }
 }

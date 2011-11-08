@@ -48,7 +48,7 @@ public class ClassFormatter extends CodeFormatter {
     
     public void writeSuper(String superClass) 
             throws IOException {
-        writeDirective(".class");
+        writeDirective(".super");
         whitespace();
         writeIdentifier(superClass);
         newline();
