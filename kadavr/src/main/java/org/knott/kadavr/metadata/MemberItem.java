@@ -43,4 +43,6 @@ public abstract class MemberItem extends ConstItem {
         ownerClassIndex = dis.readU2();
         nameTypeIndex = dis.readU2();
     }
+    
+    public abstract String getOperandString();
 }

@@ -35,4 +35,8 @@ public class ClassItem extends ConstItem {
     protected void read(ClassFileReader dis) throws IOException {
         nameIndex = dis.readU2();
     }
+    
+    public String getTypeName() {
+        return getName().get();
+    }
 }

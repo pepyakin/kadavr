@@ -2,6 +2,7 @@ package org.knott.kadavr;
 
 import java.io.IOException;
 import org.knott.kadavr.metadata.ClassFile;
+import org.knott.kadavr.metadata.Field;
 import org.knott.kadavr.metadata.Method;
 
 /**
@@ -19,14 +20,18 @@ public class Disassembler {
         this.classFile = classFile;
     }
     
+    /**
+     * Разобрать и вывести в указанный {@link IdentTextWriter}.
+     * @throws IOException Возникает при неудачном выводе
+     * в райтер.
+     */
     public void disassemble() throws IOException {
-        ClassDisasm clDisasm;
-    
-        clDisasm = new ClassDisasm(writer);
-        clDisasm.setClassFile(classFile);
-        
-        clDisasm.parse();
-        
+        disassembleClass();
+        disassembleFields();
+        disassembleMethods();
+    }
+
+    private void disassembleMethods() throws IOException {
         for (Method method : classFile.getMethods()) {
             MethodDisasm methodDisasm = new MethodDisasm(writer, method);
             methodDisasm.beginParse();
@@ -35,6 +40,22 @@ public class Disassembler {
             bcDisasm.parse();
             
             methodDisasm.endParse();
+        }
+    }
+
+    private void disassembleClass() throws IOException {
+        ClassDisasm clDisasm;
+    
+        clDisasm = new ClassDisasm(writer);
+        clDisasm.setClassFile(classFile);
+        
+        clDisasm.parse();
+    }
+
+    private void disassembleFields() throws IOException {
+        for (Field field : classFile.getFields()) {
+            FieldDisasm fieldDisasm = new FieldDisasm(writer, field);
+            fieldDisasm.parse();
         }
     }
 }

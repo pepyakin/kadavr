@@ -31,6 +31,11 @@ public class BytecodeFormatter
         whitespace();
     }
     
+    public void writeLabel(int pc) throws IOException {
+        writeLabel(labelGen.genLabelName(pc));
+        whitespace();
+    }
+    
     public void writeLimitStack(int limit) throws IOException {
         writeDirective(".limit");
         whitespace();
@@ -47,5 +52,9 @@ public class BytecodeFormatter
         whitespace();
         writeIntermediate(limit);
         newline();
+    }
+
+    public void writeOperand(String valueString) throws IOException {
+        write(valueString);
     }
 }

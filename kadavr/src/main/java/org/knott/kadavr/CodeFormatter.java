@@ -70,6 +70,10 @@ public class CodeFormatter {
     public void writeIdentifier(String id) throws IOException {
         writer.append(id);
     }
+    
+    public void write(String str) throws IOException {
+        writer.write(str);
+    }
 
     public void setIdentLevel(int level) {
         writer.setIdentLevel(level);

@@ -8,7 +8,7 @@ import org.knott.kadavr.metadata.ClassFileReader;
 
 public abstract class BytecodeVisitor {
 
-public void preVisit(Opcode opcode) throws IOException {}
+public void preVisit(int pc, Opcode opcode) throws IOException {}
 public void postVisit(Opcode opcode) throws IOException {}
 
 public void visitNop(ClassFileReader r) throws IOException{}

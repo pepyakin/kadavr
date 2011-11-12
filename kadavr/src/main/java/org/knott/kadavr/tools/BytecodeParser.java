@@ -18,430 +18,432 @@ this.reader = reader;
 
 public void parse() throws IOException {
    try {
+   int pc = 0;
    while (true) {
             int opcodeValue = reader.readU1();
             Opcode opcode = Opcode.getOpcode(opcodeValue);
-            visitor.preVisit(opcode);
-			byte[] operandData = new byte[opcode.opSize];
+            visitor.preVisit(pc, opcode);
+            byte[] operandData = new byte[opcode.opSize];
             reader.read(operandData);
             
             ClassFileReader isolated = new ClassFileReader(new ByteArrayInputStream(operandData));
             switch (opcode) {
 
 
-	case NOP: visitor.visitNop(isolated);
+	case NOP: visitor.visitNop(isolated);break;
 	
-	case ACONST_NULL: visitor.visitAconst_null(isolated);
+	case ACONST_NULL: visitor.visitAconst_null(isolated);break;
 	
-	case ICONST_M1: visitor.visitIconst_m1(isolated);
+	case ICONST_M1: visitor.visitIconst_m1(isolated);break;
 	
-	case ICONST_0: visitor.visitIconst_0(isolated);
+	case ICONST_0: visitor.visitIconst_0(isolated);break;
 	
-	case ICONST_1: visitor.visitIconst_1(isolated);
+	case ICONST_1: visitor.visitIconst_1(isolated);break;
 	
-	case ICONST_2: visitor.visitIconst_2(isolated);
+	case ICONST_2: visitor.visitIconst_2(isolated);break;
 	
-	case ICONST_3: visitor.visitIconst_3(isolated);
+	case ICONST_3: visitor.visitIconst_3(isolated);break;
 	
-	case ICONST_4: visitor.visitIconst_4(isolated);
+	case ICONST_4: visitor.visitIconst_4(isolated);break;
 	
-	case ICONST_5: visitor.visitIconst_5(isolated);
+	case ICONST_5: visitor.visitIconst_5(isolated);break;
 	
-	case LCONST_0: visitor.visitLconst_0(isolated);
+	case LCONST_0: visitor.visitLconst_0(isolated);break;
 	
-	case LCONST_1: visitor.visitLconst_1(isolated);
+	case LCONST_1: visitor.visitLconst_1(isolated);break;
 	
-	case FCONST_0: visitor.visitFconst_0(isolated);
+	case FCONST_0: visitor.visitFconst_0(isolated);break;
 	
-	case FCONST_1: visitor.visitFconst_1(isolated);
+	case FCONST_1: visitor.visitFconst_1(isolated);break;
 	
-	case FCONST_2: visitor.visitFconst_2(isolated);
+	case FCONST_2: visitor.visitFconst_2(isolated);break;
 	
-	case DCONST_0: visitor.visitDconst_0(isolated);
+	case DCONST_0: visitor.visitDconst_0(isolated);break;
 	
-	case DCONST_1: visitor.visitDconst_1(isolated);
+	case DCONST_1: visitor.visitDconst_1(isolated);break;
 	
-	case BIPUSH: visitor.visitBipush(isolated);
+	case BIPUSH: visitor.visitBipush(isolated);break;
 	
-	case SIPUSH: visitor.visitSipush(isolated);
+	case SIPUSH: visitor.visitSipush(isolated);break;
 	
-	case LDC: visitor.visitLdc(isolated);
+	case LDC: visitor.visitLdc(isolated);break;
 	
-	case LDC_W: visitor.visitLdc_w(isolated);
+	case LDC_W: visitor.visitLdc_w(isolated);break;
 	
-	case LDC2_W: visitor.visitLdc2_w(isolated);
+	case LDC2_W: visitor.visitLdc2_w(isolated);break;
 	
-	case ILOAD: visitor.visitIload(isolated);
+	case ILOAD: visitor.visitIload(isolated);break;
 	
-	case LLOAD: visitor.visitLload(isolated);
+	case LLOAD: visitor.visitLload(isolated);break;
 	
-	case FLOAD: visitor.visitFload(isolated);
+	case FLOAD: visitor.visitFload(isolated);break;
 	
-	case DLOAD: visitor.visitDload(isolated);
+	case DLOAD: visitor.visitDload(isolated);break;
 	
-	case ALOAD: visitor.visitAload(isolated);
+	case ALOAD: visitor.visitAload(isolated);break;
 	
-	case ILOAD_0: visitor.visitIload_0(isolated);
+	case ILOAD_0: visitor.visitIload_0(isolated);break;
 	
-	case ILOAD_1: visitor.visitIload_1(isolated);
+	case ILOAD_1: visitor.visitIload_1(isolated);break;
 	
-	case ILOAD_2: visitor.visitIload_2(isolated);
+	case ILOAD_2: visitor.visitIload_2(isolated);break;
 	
-	case ILOAD_3: visitor.visitIload_3(isolated);
+	case ILOAD_3: visitor.visitIload_3(isolated);break;
 	
-	case LLOAD_0: visitor.visitLload_0(isolated);
+	case LLOAD_0: visitor.visitLload_0(isolated);break;
 	
-	case LLOAD_1: visitor.visitLload_1(isolated);
+	case LLOAD_1: visitor.visitLload_1(isolated);break;
 	
-	case LLOAD_2: visitor.visitLload_2(isolated);
+	case LLOAD_2: visitor.visitLload_2(isolated);break;
 	
-	case LLOAD_3: visitor.visitLload_3(isolated);
+	case LLOAD_3: visitor.visitLload_3(isolated);break;
 	
-	case FLOAD_0: visitor.visitFload_0(isolated);
+	case FLOAD_0: visitor.visitFload_0(isolated);break;
 	
-	case FLOAD_1: visitor.visitFload_1(isolated);
+	case FLOAD_1: visitor.visitFload_1(isolated);break;
 	
-	case FLOAD_2: visitor.visitFload_2(isolated);
+	case FLOAD_2: visitor.visitFload_2(isolated);break;
 	
-	case FLOAD_3: visitor.visitFload_3(isolated);
+	case FLOAD_3: visitor.visitFload_3(isolated);break;
 	
-	case DLOAD_0: visitor.visitDload_0(isolated);
+	case DLOAD_0: visitor.visitDload_0(isolated);break;
 	
-	case DLOAD_1: visitor.visitDload_1(isolated);
+	case DLOAD_1: visitor.visitDload_1(isolated);break;
 	
-	case DLOAD_2: visitor.visitDload_2(isolated);
+	case DLOAD_2: visitor.visitDload_2(isolated);break;
 	
-	case DLOAD_3: visitor.visitDload_3(isolated);
+	case DLOAD_3: visitor.visitDload_3(isolated);break;
 	
-	case ALOAD_0: visitor.visitAload_0(isolated);
+	case ALOAD_0: visitor.visitAload_0(isolated);break;
 	
-	case ALOAD_1: visitor.visitAload_1(isolated);
+	case ALOAD_1: visitor.visitAload_1(isolated);break;
 	
-	case ALOAD_2: visitor.visitAload_2(isolated);
+	case ALOAD_2: visitor.visitAload_2(isolated);break;
 	
-	case ALOAD_3: visitor.visitAload_3(isolated);
+	case ALOAD_3: visitor.visitAload_3(isolated);break;
 	
-	case IALOAD: visitor.visitIaload(isolated);
+	case IALOAD: visitor.visitIaload(isolated);break;
 	
-	case LALOAD: visitor.visitLaload(isolated);
+	case LALOAD: visitor.visitLaload(isolated);break;
 	
-	case FALOAD: visitor.visitFaload(isolated);
+	case FALOAD: visitor.visitFaload(isolated);break;
 	
-	case DALOAD: visitor.visitDaload(isolated);
+	case DALOAD: visitor.visitDaload(isolated);break;
 	
-	case AALOAD: visitor.visitAaload(isolated);
+	case AALOAD: visitor.visitAaload(isolated);break;
 	
-	case BALOAD: visitor.visitBaload(isolated);
+	case BALOAD: visitor.visitBaload(isolated);break;
 	
-	case CALOAD: visitor.visitCaload(isolated);
+	case CALOAD: visitor.visitCaload(isolated);break;
 	
-	case SALOAD: visitor.visitSaload(isolated);
+	case SALOAD: visitor.visitSaload(isolated);break;
 	
-	case ISTORE: visitor.visitIstore(isolated);
+	case ISTORE: visitor.visitIstore(isolated);break;
 	
-	case LSTORE: visitor.visitLstore(isolated);
+	case LSTORE: visitor.visitLstore(isolated);break;
 	
-	case FSTORE: visitor.visitFstore(isolated);
+	case FSTORE: visitor.visitFstore(isolated);break;
 	
-	case DSTORE: visitor.visitDstore(isolated);
+	case DSTORE: visitor.visitDstore(isolated);break;
 	
-	case ASTORE: visitor.visitAstore(isolated);
+	case ASTORE: visitor.visitAstore(isolated);break;
 	
-	case ISTORE_0: visitor.visitIstore_0(isolated);
+	case ISTORE_0: visitor.visitIstore_0(isolated);break;
 	
-	case ISTORE_1: visitor.visitIstore_1(isolated);
+	case ISTORE_1: visitor.visitIstore_1(isolated);break;
 	
-	case ISTORE_2: visitor.visitIstore_2(isolated);
+	case ISTORE_2: visitor.visitIstore_2(isolated);break;
 	
-	case ISTORE_3: visitor.visitIstore_3(isolated);
+	case ISTORE_3: visitor.visitIstore_3(isolated);break;
 	
-	case LSTORE_0: visitor.visitLstore_0(isolated);
+	case LSTORE_0: visitor.visitLstore_0(isolated);break;
 	
-	case LSTORE_1: visitor.visitLstore_1(isolated);
+	case LSTORE_1: visitor.visitLstore_1(isolated);break;
 	
-	case LSTORE_2: visitor.visitLstore_2(isolated);
+	case LSTORE_2: visitor.visitLstore_2(isolated);break;
 	
-	case LSTORE_3: visitor.visitLstore_3(isolated);
+	case LSTORE_3: visitor.visitLstore_3(isolated);break;
 	
-	case FSTORE_0: visitor.visitFstore_0(isolated);
+	case FSTORE_0: visitor.visitFstore_0(isolated);break;
 	
-	case FSTORE_1: visitor.visitFstore_1(isolated);
+	case FSTORE_1: visitor.visitFstore_1(isolated);break;
 	
-	case FSTORE_2: visitor.visitFstore_2(isolated);
+	case FSTORE_2: visitor.visitFstore_2(isolated);break;
 	
-	case FSTORE_3: visitor.visitFstore_3(isolated);
+	case FSTORE_3: visitor.visitFstore_3(isolated);break;
 	
-	case DSTORE_0: visitor.visitDstore_0(isolated);
+	case DSTORE_0: visitor.visitDstore_0(isolated);break;
 	
-	case DSTORE_1: visitor.visitDstore_1(isolated);
+	case DSTORE_1: visitor.visitDstore_1(isolated);break;
 	
-	case DSTORE_2: visitor.visitDstore_2(isolated);
+	case DSTORE_2: visitor.visitDstore_2(isolated);break;
 	
-	case DSTORE_3: visitor.visitDstore_3(isolated);
+	case DSTORE_3: visitor.visitDstore_3(isolated);break;
 	
-	case ASTORE_0: visitor.visitAstore_0(isolated);
+	case ASTORE_0: visitor.visitAstore_0(isolated);break;
 	
-	case ASTORE_1: visitor.visitAstore_1(isolated);
+	case ASTORE_1: visitor.visitAstore_1(isolated);break;
 	
-	case ASTORE_2: visitor.visitAstore_2(isolated);
+	case ASTORE_2: visitor.visitAstore_2(isolated);break;
 	
-	case ASTORE_3: visitor.visitAstore_3(isolated);
+	case ASTORE_3: visitor.visitAstore_3(isolated);break;
 	
-	case IASTORE: visitor.visitIastore(isolated);
+	case IASTORE: visitor.visitIastore(isolated);break;
 	
-	case LASTORE: visitor.visitLastore(isolated);
+	case LASTORE: visitor.visitLastore(isolated);break;
 	
-	case FASTORE: visitor.visitFastore(isolated);
+	case FASTORE: visitor.visitFastore(isolated);break;
 	
-	case DASTORE: visitor.visitDastore(isolated);
+	case DASTORE: visitor.visitDastore(isolated);break;
 	
-	case AASTORE: visitor.visitAastore(isolated);
+	case AASTORE: visitor.visitAastore(isolated);break;
 	
-	case BASTORE: visitor.visitBastore(isolated);
+	case BASTORE: visitor.visitBastore(isolated);break;
 	
-	case CASTORE: visitor.visitCastore(isolated);
+	case CASTORE: visitor.visitCastore(isolated);break;
 	
-	case SASTORE: visitor.visitSastore(isolated);
+	case SASTORE: visitor.visitSastore(isolated);break;
 	
-	case POP: visitor.visitPop(isolated);
+	case POP: visitor.visitPop(isolated);break;
 	
-	case POP2: visitor.visitPop2(isolated);
+	case POP2: visitor.visitPop2(isolated);break;
 	
-	case DUP: visitor.visitDup(isolated);
+	case DUP: visitor.visitDup(isolated);break;
 	
-	case DUP_X1: visitor.visitDup_x1(isolated);
+	case DUP_X1: visitor.visitDup_x1(isolated);break;
 	
-	case DUP_X2: visitor.visitDup_x2(isolated);
+	case DUP_X2: visitor.visitDup_x2(isolated);break;
 	
-	case DUP2: visitor.visitDup2(isolated);
+	case DUP2: visitor.visitDup2(isolated);break;
 	
-	case DUP2_X1: visitor.visitDup2_x1(isolated);
+	case DUP2_X1: visitor.visitDup2_x1(isolated);break;
 	
-	case DUP2_X2: visitor.visitDup2_x2(isolated);
+	case DUP2_X2: visitor.visitDup2_x2(isolated);break;
 	
-	case SWAP: visitor.visitSwap(isolated);
+	case SWAP: visitor.visitSwap(isolated);break;
 	
-	case IADD: visitor.visitIadd(isolated);
+	case IADD: visitor.visitIadd(isolated);break;
 	
-	case LADD: visitor.visitLadd(isolated);
+	case LADD: visitor.visitLadd(isolated);break;
 	
-	case FADD: visitor.visitFadd(isolated);
+	case FADD: visitor.visitFadd(isolated);break;
 	
-	case DADD: visitor.visitDadd(isolated);
+	case DADD: visitor.visitDadd(isolated);break;
 	
-	case ISUB: visitor.visitIsub(isolated);
+	case ISUB: visitor.visitIsub(isolated);break;
 	
-	case LSUB: visitor.visitLsub(isolated);
+	case LSUB: visitor.visitLsub(isolated);break;
 	
-	case FSUB: visitor.visitFsub(isolated);
+	case FSUB: visitor.visitFsub(isolated);break;
 	
-	case DSUB: visitor.visitDsub(isolated);
+	case DSUB: visitor.visitDsub(isolated);break;
 	
-	case IMUL: visitor.visitImul(isolated);
+	case IMUL: visitor.visitImul(isolated);break;
 	
-	case LMUL: visitor.visitLmul(isolated);
+	case LMUL: visitor.visitLmul(isolated);break;
 	
-	case FMUL: visitor.visitFmul(isolated);
+	case FMUL: visitor.visitFmul(isolated);break;
 	
-	case DMUL: visitor.visitDmul(isolated);
+	case DMUL: visitor.visitDmul(isolated);break;
 	
-	case IDIV: visitor.visitIdiv(isolated);
+	case IDIV: visitor.visitIdiv(isolated);break;
 	
-	case LDIV: visitor.visitLdiv(isolated);
+	case LDIV: visitor.visitLdiv(isolated);break;
 	
-	case FDIV: visitor.visitFdiv(isolated);
+	case FDIV: visitor.visitFdiv(isolated);break;
 	
-	case DDIV: visitor.visitDdiv(isolated);
+	case DDIV: visitor.visitDdiv(isolated);break;
 	
-	case IREM: visitor.visitIrem(isolated);
+	case IREM: visitor.visitIrem(isolated);break;
 	
-	case LREM: visitor.visitLrem(isolated);
+	case LREM: visitor.visitLrem(isolated);break;
 	
-	case FREM: visitor.visitFrem(isolated);
+	case FREM: visitor.visitFrem(isolated);break;
 	
-	case DREM: visitor.visitDrem(isolated);
+	case DREM: visitor.visitDrem(isolated);break;
 	
-	case INEG: visitor.visitIneg(isolated);
+	case INEG: visitor.visitIneg(isolated);break;
 	
-	case LNEG: visitor.visitLneg(isolated);
+	case LNEG: visitor.visitLneg(isolated);break;
 	
-	case FNEG: visitor.visitFneg(isolated);
+	case FNEG: visitor.visitFneg(isolated);break;
 	
-	case DNEG: visitor.visitDneg(isolated);
+	case DNEG: visitor.visitDneg(isolated);break;
 	
-	case ISHL: visitor.visitIshl(isolated);
+	case ISHL: visitor.visitIshl(isolated);break;
 	
-	case LSHL: visitor.visitLshl(isolated);
+	case LSHL: visitor.visitLshl(isolated);break;
 	
-	case ISHR: visitor.visitIshr(isolated);
+	case ISHR: visitor.visitIshr(isolated);break;
 	
-	case LSHR: visitor.visitLshr(isolated);
+	case LSHR: visitor.visitLshr(isolated);break;
 	
-	case IUSHR: visitor.visitIushr(isolated);
+	case IUSHR: visitor.visitIushr(isolated);break;
 	
-	case LUSHR: visitor.visitLushr(isolated);
+	case LUSHR: visitor.visitLushr(isolated);break;
 	
-	case IAND: visitor.visitIand(isolated);
+	case IAND: visitor.visitIand(isolated);break;
 	
-	case LAND: visitor.visitLand(isolated);
+	case LAND: visitor.visitLand(isolated);break;
 	
-	case IOR: visitor.visitIor(isolated);
+	case IOR: visitor.visitIor(isolated);break;
 	
-	case LOR: visitor.visitLor(isolated);
+	case LOR: visitor.visitLor(isolated);break;
 	
-	case IXOR: visitor.visitIxor(isolated);
+	case IXOR: visitor.visitIxor(isolated);break;
 	
-	case LXOR: visitor.visitLxor(isolated);
+	case LXOR: visitor.visitLxor(isolated);break;
 	
-	case IINC: visitor.visitIinc(isolated);
+	case IINC: visitor.visitIinc(isolated);break;
 	
-	case I2L: visitor.visitI2l(isolated);
+	case I2L: visitor.visitI2l(isolated);break;
 	
-	case I2F: visitor.visitI2f(isolated);
+	case I2F: visitor.visitI2f(isolated);break;
 	
-	case I2D: visitor.visitI2d(isolated);
+	case I2D: visitor.visitI2d(isolated);break;
 	
-	case L2I: visitor.visitL2i(isolated);
+	case L2I: visitor.visitL2i(isolated);break;
 	
-	case L2F: visitor.visitL2f(isolated);
+	case L2F: visitor.visitL2f(isolated);break;
 	
-	case L2D: visitor.visitL2d(isolated);
+	case L2D: visitor.visitL2d(isolated);break;
 	
-	case F2I: visitor.visitF2i(isolated);
+	case F2I: visitor.visitF2i(isolated);break;
 	
-	case F2L: visitor.visitF2l(isolated);
+	case F2L: visitor.visitF2l(isolated);break;
 	
-	case F2D: visitor.visitF2d(isolated);
+	case F2D: visitor.visitF2d(isolated);break;
 	
-	case D2I: visitor.visitD2i(isolated);
+	case D2I: visitor.visitD2i(isolated);break;
 	
-	case D2L: visitor.visitD2l(isolated);
+	case D2L: visitor.visitD2l(isolated);break;
 	
-	case D2F: visitor.visitD2f(isolated);
+	case D2F: visitor.visitD2f(isolated);break;
 	
-	case I2B: visitor.visitI2b(isolated);
+	case I2B: visitor.visitI2b(isolated);break;
 	
-	case I2C: visitor.visitI2c(isolated);
+	case I2C: visitor.visitI2c(isolated);break;
 	
-	case I2S: visitor.visitI2s(isolated);
+	case I2S: visitor.visitI2s(isolated);break;
 	
-	case LCMP: visitor.visitLcmp(isolated);
+	case LCMP: visitor.visitLcmp(isolated);break;
 	
-	case FCMPL: visitor.visitFcmpl(isolated);
+	case FCMPL: visitor.visitFcmpl(isolated);break;
 	
-	case FCMPG: visitor.visitFcmpg(isolated);
+	case FCMPG: visitor.visitFcmpg(isolated);break;
 	
-	case DCMPL: visitor.visitDcmpl(isolated);
+	case DCMPL: visitor.visitDcmpl(isolated);break;
 	
-	case DCMPG: visitor.visitDcmpg(isolated);
+	case DCMPG: visitor.visitDcmpg(isolated);break;
 	
-	case IFEQ: visitor.visitIfeq(isolated);
+	case IFEQ: visitor.visitIfeq(isolated);break;
 	
-	case IFNE: visitor.visitIfne(isolated);
+	case IFNE: visitor.visitIfne(isolated);break;
 	
-	case IFLT: visitor.visitIflt(isolated);
+	case IFLT: visitor.visitIflt(isolated);break;
 	
-	case IFGE: visitor.visitIfge(isolated);
+	case IFGE: visitor.visitIfge(isolated);break;
 	
-	case IFGT: visitor.visitIfgt(isolated);
+	case IFGT: visitor.visitIfgt(isolated);break;
 	
-	case IFLE: visitor.visitIfle(isolated);
+	case IFLE: visitor.visitIfle(isolated);break;
 	
-	case IF_ICMPEQ: visitor.visitIf_icmpeq(isolated);
+	case IF_ICMPEQ: visitor.visitIf_icmpeq(isolated);break;
 	
-	case IF_ICMPNE: visitor.visitIf_icmpne(isolated);
+	case IF_ICMPNE: visitor.visitIf_icmpne(isolated);break;
 	
-	case IF_ICMPLT: visitor.visitIf_icmplt(isolated);
+	case IF_ICMPLT: visitor.visitIf_icmplt(isolated);break;
 	
-	case IF_ICMPGE: visitor.visitIf_icmpge(isolated);
+	case IF_ICMPGE: visitor.visitIf_icmpge(isolated);break;
 	
-	case IF_ICMPGT: visitor.visitIf_icmpgt(isolated);
+	case IF_ICMPGT: visitor.visitIf_icmpgt(isolated);break;
 	
-	case IF_ICMPLE: visitor.visitIf_icmple(isolated);
+	case IF_ICMPLE: visitor.visitIf_icmple(isolated);break;
 	
-	case IF_ACMPEQ: visitor.visitIf_acmpeq(isolated);
+	case IF_ACMPEQ: visitor.visitIf_acmpeq(isolated);break;
 	
-	case IF_ACMPNE: visitor.visitIf_acmpne(isolated);
+	case IF_ACMPNE: visitor.visitIf_acmpne(isolated);break;
 	
-	case GOTO: visitor.visitGoto(isolated);
+	case GOTO: visitor.visitGoto(isolated);break;
 	
-	case JSR: visitor.visitJsr(isolated);
+	case JSR: visitor.visitJsr(isolated);break;
 	
-	case RET: visitor.visitRet(isolated);
+	case RET: visitor.visitRet(isolated);break;
 	
-	case TABLESWITCH: visitor.visitTableswitch(isolated);
+	case TABLESWITCH: visitor.visitTableswitch(isolated);break;
 	
-	case LOOKUPSWITCH: visitor.visitLookupswitch(isolated);
+	case LOOKUPSWITCH: visitor.visitLookupswitch(isolated);break;
 	
-	case IRETURN: visitor.visitIreturn(isolated);
+	case IRETURN: visitor.visitIreturn(isolated);break;
 	
-	case LRETURN: visitor.visitLreturn(isolated);
+	case LRETURN: visitor.visitLreturn(isolated);break;
 	
-	case FRETURN: visitor.visitFreturn(isolated);
+	case FRETURN: visitor.visitFreturn(isolated);break;
 	
-	case DRETURN: visitor.visitDreturn(isolated);
+	case DRETURN: visitor.visitDreturn(isolated);break;
 	
-	case ARETURN: visitor.visitAreturn(isolated);
+	case ARETURN: visitor.visitAreturn(isolated);break;
 	
-	case RETURN: visitor.visitReturn(isolated);
+	case RETURN: visitor.visitReturn(isolated);break;
 	
-	case GETSTATIC: visitor.visitGetstatic(isolated);
+	case GETSTATIC: visitor.visitGetstatic(isolated);break;
 	
-	case PUTSTATIC: visitor.visitPutstatic(isolated);
+	case PUTSTATIC: visitor.visitPutstatic(isolated);break;
 	
-	case GETFIELD: visitor.visitGetfield(isolated);
+	case GETFIELD: visitor.visitGetfield(isolated);break;
 	
-	case PUTFIELD: visitor.visitPutfield(isolated);
+	case PUTFIELD: visitor.visitPutfield(isolated);break;
 	
-	case INVOKEVIRTUAL: visitor.visitInvokevirtual(isolated);
+	case INVOKEVIRTUAL: visitor.visitInvokevirtual(isolated);break;
 	
-	case INVOKESPECIAL: visitor.visitInvokespecial(isolated);
+	case INVOKESPECIAL: visitor.visitInvokespecial(isolated);break;
 	
-	case INVOKESTATIC: visitor.visitInvokestatic(isolated);
+	case INVOKESTATIC: visitor.visitInvokestatic(isolated);break;
 	
-	case INVOKEINTERFACE: visitor.visitInvokeinterface(isolated);
+	case INVOKEINTERFACE: visitor.visitInvokeinterface(isolated);break;
 	
-	case XXXUNUSEDXXX1: visitor.visitXxxunusedxxx1(isolated);
+	case XXXUNUSEDXXX1: visitor.visitXxxunusedxxx1(isolated);break;
 	
-	case NEW: visitor.visitNew(isolated);
+	case NEW: visitor.visitNew(isolated);break;
 	
-	case NEWARRAY: visitor.visitNewarray(isolated);
+	case NEWARRAY: visitor.visitNewarray(isolated);break;
 	
-	case ANEWARRAY: visitor.visitAnewarray(isolated);
+	case ANEWARRAY: visitor.visitAnewarray(isolated);break;
 	
-	case ARRAYLENGTH: visitor.visitArraylength(isolated);
+	case ARRAYLENGTH: visitor.visitArraylength(isolated);break;
 	
-	case ATHROW: visitor.visitAthrow(isolated);
+	case ATHROW: visitor.visitAthrow(isolated);break;
 	
-	case CHECKCAST: visitor.visitCheckcast(isolated);
+	case CHECKCAST: visitor.visitCheckcast(isolated);break;
 	
-	case INSTANCEOF: visitor.visitInstanceof(isolated);
+	case INSTANCEOF: visitor.visitInstanceof(isolated);break;
 	
-	case MONITORENTER: visitor.visitMonitorenter(isolated);
+	case MONITORENTER: visitor.visitMonitorenter(isolated);break;
 	
-	case MONITOREXIT: visitor.visitMonitorexit(isolated);
+	case MONITOREXIT: visitor.visitMonitorexit(isolated);break;
 	
-	case WIDE: visitor.visitWide(isolated);
+	case WIDE: visitor.visitWide(isolated);break;
 	
-	case MULTIANEWARRAY: visitor.visitMultianewarray(isolated);
+	case MULTIANEWARRAY: visitor.visitMultianewarray(isolated);break;
 	
-	case IFNULL: visitor.visitIfnull(isolated);
+	case IFNULL: visitor.visitIfnull(isolated);break;
 	
-	case IFNONNULL: visitor.visitIfnonnull(isolated);
+	case IFNONNULL: visitor.visitIfnonnull(isolated);break;
 	
-	case GOTO_W: visitor.visitGoto_w(isolated);
+	case GOTO_W: visitor.visitGoto_w(isolated);break;
 	
-	case JSR_W: visitor.visitJsr_w(isolated);
+	case JSR_W: visitor.visitJsr_w(isolated);break;
 	
-	case BREAKPOINT: visitor.visitBreakpoint(isolated);
+	case BREAKPOINT: visitor.visitBreakpoint(isolated);break;
 	
-	case IMPDEP1: visitor.visitImpdep1(isolated);
+	case IMPDEP1: visitor.visitImpdep1(isolated);break;
 	
-	case IMPDEP2: visitor.visitImpdep2(isolated);
+	case IMPDEP2: visitor.visitImpdep2(isolated);break;
 	
                 
             }
 			visitor.postVisit(opcode);
+                        pc += 1 + opcode.opSize;
         }
 	} catch (EOFException e) {
 	  return;

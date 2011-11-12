@@ -26,10 +26,17 @@ public class App implements Serializable {
         IdentTextWriter writer = new IdentTextWriter(
                 new OutputStreamWriter(System.out));
         
-        ClassFile c = ClassFile.fromFile(PREFIX + "org/knott/kadavr/App.class");
+        ClassFile c = ClassFile.fromFile(
+                PREFIX + "org/knott/kadavr/App.class");
         
         Disassembler dis = new Disassembler(writer, c);
         dis.disassemble();
         writer.flush();
+    }
+    
+    private void test1() {
+        for (int i = 0; i < 150; i++) {
+            System.out.println(-128);
+        }
     }
 }

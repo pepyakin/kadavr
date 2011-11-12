@@ -50,7 +50,7 @@ import org.knott.kadavr.metadata.ClassFileReader;
 
 public abstract class BytecodeVisitor {
 
-public void preVisit(Opcode opcode) throws IOException {}
+public void preVisit(int pc, Opcode opcode) throws IOException {}
 public void postVisit(Opcode opcode) throws IOException {}
 """)
 
@@ -72,11 +72,12 @@ this.reader = reader;
 
 public void parse() throws IOException {
    try {
+   int pc = 0;
    while (true) {
             int opcodeValue = reader.readU1();
             Opcode opcode = Opcode.getOpcode(opcodeValue);
-            visitor.preVisit(opcode);
-			byte[] operandData = new byte[opcode.opSize];
+            visitor.preVisit(pc, opcode);
+            byte[] operandData = new byte[opcode.opSize];
             reader.read(operandData);
             
             ClassFileReader isolated = new ClassFileReader(new ByteArrayInputStream(operandData));
@@ -117,7 +118,7 @@ public void %s(ClassFileReader r) throws IOException{}
 	""" % methodName)
 	
 	bcParser.write("""
-	case %s: visitor.%s(isolated);
+	case %s: visitor.%s(isolated);break;
 	""" % (enumName, methodName))
 
 
@@ -154,6 +155,7 @@ bcParser.write("""
                 
             }
 			visitor.postVisit(opcode);
+                        pc += 1 + opcode.opSize;
         }
 	} catch (EOFException e) {
 	  return;
