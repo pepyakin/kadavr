@@ -20,7 +20,7 @@ public enum AccessFlag {
     INTERFACE(0x0200, "interface", 5),
     ABSTRACT(0x0400, "abstract", 1),
     STRICT(0x0800, "strictfp", 5);
-    
+
     private final int flag;
     private final String mnemonic;
     private final int priority;
@@ -42,7 +42,7 @@ public enum AccessFlag {
     public int getPriority() {
         return priority;
     }
-    
+
     public boolean isSet(int flags) {
         return ((flag & flags) != 0);
     }

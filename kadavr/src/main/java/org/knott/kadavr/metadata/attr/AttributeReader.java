@@ -54,7 +54,10 @@ public class AttributeReader {
             dis.read(data);
             
             // Этот аттрибут не определён в спецификации, пропускаем его.
-            if (resolved == null) continue;
+            if (resolved == null) {
+                attrs[i] = new GenericAttribute(name);
+                continue;
+            }
             
             // Засумонить аттрибут из соответсвующего
             // класса.

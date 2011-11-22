@@ -26,10 +26,10 @@ import org.knott.kadavr.tools.Opcode;
  * @author knott
  */
 public class BytecodeDisasm {
-    
+
     private BytecodeFormatter formatter;
     private ClassFileReader reader;
-    
+
     private Code code;
     private ClassFile cf;
     private BytecodeParser parser;
@@ -38,56 +38,56 @@ public class BytecodeDisasm {
     public BytecodeDisasm(IdentTextWriter writer, Code code, ClassFile cf) {
         this(new BytecodeFormatter(writer), code, cf);
     }
-    
+
     /**
      * Создать экземпляр дизассемблера байт кода.
      * @param formatter
-     * @param code 
+     * @param code
      */
     public BytecodeDisasm(BytecodeFormatter formatter, Code code, ClassFile cf) {
         this.formatter = formatter;
         this.code = code;
         this.cf = cf;
-        
-        // Создать считыватель кода на основе 
+
+        // Создать считыватель кода на основе
         // данных из массива.
         this.reader = new ClassFileReader(
                 new ByteArrayInputStream(code.getCode()));
-        
+
         pool = cf.getPool();
     }
-    
+
     /**
      * Выполнить разбор кода.
-     * @throws IOException 
+     * @throws IOException
      */
     public void parse() throws IOException {
         formatter.writeLimitLocals(code.getMaxLocals());
         formatter.writeLimitStack(code.getMaxStack());
-        
+
         formatter.newline();
-        
+
         parser = new BytecodeParser(visitor, reader);
         parser.parse();
     }
 
-    
+
     private BytecodeVisitor visitor = new BytecodeVisitor() {
-        
+
         private boolean wide = false;
         private int pc;
-        
+
         @Override
         public void preVisit(int pc, Opcode opcode) throws IOException {
             formatter.writeLabelDecl(pc);
-            
+
             formatter.writeInstruction(opcode.mnemonic);
             formatter.whitespace();
-            
+
             if (opcode == Opcode.WIDE) {
                 wide = true;
             }
-            
+
             this.pc = pc;
         }
 
@@ -95,50 +95,50 @@ public class BytecodeDisasm {
         public void postVisit(Opcode opcode) throws IOException {
             if (opcode != Opcode.WIDE) {
                 formatter.newline();
-                
+
                 if (wide) {
                     wide = false;
                 }
             }
         }
-        
+
         private void ldc(int index) throws IOException {
             ConstValueItem item = pool.get(index);
             formatter.writeOperand(item.getValueString());
         }
-        
+
         private void memberOperand(int index) throws IOException {
             MemberItem item = pool.get(index);
             formatter.writeOperand(item.getOperandString());
         }
-        
+
         private void integerOperand(int value) throws IOException {
             formatter.writeOperand(Integer.toString(value));
         }
-        
+
         private void typeOperand(int index) throws IOException {
             ClassItem item = pool.get(index);
             formatter.writeOperand(item.getTypeName());
         }
-        
+
         private void localVarOrRet(ClassFileReader r) throws IOException {
             int index;
-            
+
             if (wide) {
                 index = r.readU2();
             } else {
                 index = r.readU1();
             }
-            
+
             integerOperand(index);
         }
-        
+
         private void iinc(int idx, int val) throws IOException {
             formatter.writeOperand(Integer.toString(idx));
             formatter.whitespace();
             formatter.writeOperand(Integer.toString(val));
         }
-        
+
         private void branch(int to) throws IOException {
             formatter.writeLabel(to);
         }
@@ -258,16 +258,16 @@ public class BytecodeDisasm {
         public void visitLstore(ClassFileReader r) throws IOException {
             localVarOrRet(r);
         }
-        
+
         @Override
         public void visitRet(ClassFileReader r) throws IOException {
             localVarOrRet(r);
         }
-        
+
         @Override
         public void visitIinc(ClassFileReader r) throws IOException {
             int index, constValue;
-            
+
             if (wide) {
                 index = r.readU2();
                 constValue = (short)r.readU2();
@@ -275,7 +275,7 @@ public class BytecodeDisasm {
                 index = r.readU1();
                 constValue = (byte)r.readU1();
             }
-            
+
             iinc(index, constValue);
         }
 
@@ -380,7 +380,7 @@ public class BytecodeDisasm {
         @Override
         public void visitNewarray(ClassFileReader r) throws IOException {
             int acode = r.readU1();
-            
+
             formatter.writeOperand(AType.byACode(acode).getMnemonic());
         }
 
@@ -414,6 +414,16 @@ public class BytecodeDisasm {
             typeOperand(r.readU2());
             formatter.whitespace();
             integerOperand(r.readU1());
+        }
+
+        @Override
+        public void visitLookupswitch(ClassFileReader r) throws IOException {
+            throw new UnsupportedOperationException("lookupswitch opcode");
+        }
+
+        @Override
+        public void visitTableswitch(ClassFileReader r) throws IOException {
+            throw new UnsupportedOperationException("tableswitch opcode");
         }
     };
 }

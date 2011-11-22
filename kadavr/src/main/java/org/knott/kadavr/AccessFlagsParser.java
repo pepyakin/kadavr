@@ -50,7 +50,8 @@ public class AccessFlagsParser {
             // разобранные флаги. Таких по плану не должно оставаться.
             // Однако спецификация говорит что мы должны их
             // молча игнорировать.
-            throw new RuntimeException();
+            
+            // throw new RuntimeException();
         }
         
         return result;

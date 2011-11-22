@@ -6,7 +6,7 @@ import java.io.IOException;
  *
  * @author Sergey
  */
-public class ClassItem extends ConstItem {
+public class ClassItem extends ConstValueItem {
     
     public static final int TAG = ConstPool.TAG_CLASS;
     
@@ -38,5 +38,10 @@ public class ClassItem extends ConstItem {
     
     public String getTypeName() {
         return getName().get();
+    }
+
+    @Override
+    public String getValueString() {
+        return getTypeName();
     }
 }

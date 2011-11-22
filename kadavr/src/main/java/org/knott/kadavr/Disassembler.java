@@ -11,15 +11,15 @@ import org.knott.kadavr.metadata.Method;
  * @author Sergey
  */
 public class Disassembler {
-    
+
     IdentTextWriter writer;
     ClassFile classFile;
-    
+
     public Disassembler(IdentTextWriter writer, ClassFile classFile) {
         this.writer = writer;
         this.classFile = classFile;
     }
-    
+
     /**
      * Разобрать и вывести в указанный {@link IdentTextWriter}.
      * @throws IOException Возникает при неудачном выводе
@@ -35,20 +35,22 @@ public class Disassembler {
         for (Method method : classFile.getMethods()) {
             MethodDisasm methodDisasm = new MethodDisasm(writer, method);
             methodDisasm.beginParse();
-            
-            BytecodeDisasm bcDisasm = new BytecodeDisasm(writer, method.getCode(), classFile);
-            bcDisasm.parse();
-            
+
+            if (method.haveBody()) {
+                BytecodeDisasm bcDisasm = new BytecodeDisasm(writer, method.getCode(), classFile);
+                bcDisasm.parse();
+            }
+
             methodDisasm.endParse();
         }
     }
 
     private void disassembleClass() throws IOException {
         ClassDisasm clDisasm;
-    
+
         clDisasm = new ClassDisasm(writer);
         clDisasm.setClassFile(classFile);
-        
+
         clDisasm.parse();
     }
 
