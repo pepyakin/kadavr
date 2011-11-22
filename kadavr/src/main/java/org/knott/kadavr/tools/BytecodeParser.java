@@ -11,6 +11,9 @@ public class BytecodeParser {
 private BytecodeVisitor visitor;
 private ClassFileReader reader;
 
+/**
+ * @unpublished
+ */
 public BytecodeParser(BytecodeVisitor visitor, ClassFileReader reader) {
 this.visitor = visitor;
 this.reader = reader;

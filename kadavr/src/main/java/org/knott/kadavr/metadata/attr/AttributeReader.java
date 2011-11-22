@@ -11,30 +11,41 @@ import org.knott.kadavr.metadata.ConstPool;
 /**
  * Вспомогательный класс для чтения
  * аттрибутов.
- * 
+ *
  * @author Sergey
  */
 public class AttributeReader {
-    
+
     private ConstPool constPool;
     private Map<String, Class<? extends Attribute>> mapping;
 
+    /**
+     * Создать экземпляр класса AttributeReader.
+     *
+     * @param constPool Константный пул владельца.
+     */
     public AttributeReader(ConstPool constPool) {
         if (constPool == null)
             throw new NullPointerException("constPool can't be null");
-        
+
         this.constPool = constPool;
         mapping = new HashMap<String, Class<? extends Attribute>>();
         addDefaultMapping();
     }
-    
-    public Attributes read(ClassFileReader dis) 
+
+    /**
+     * Прочитать данные из потока.
+     * @param dis Поток входных данных.
+     * @return Возвращает набор аттрибутов.
+     * @throws IOException Если происходит ошибка ввода вывода.
+     */
+    public Attributes read(ClassFileReader dis)
             throws IOException {
-        //    .. 
+        //    ..
         //    u2 attributes_count;
     	//    attribute_info attributes[attributes_count];
         //}
-        
+
         //attribute_info {
         //    u2 attribute_name_index;
         //    u4 attribute_length;
@@ -42,23 +53,23 @@ public class AttributeReader {
         //}
         int count = dis.readU2();
         Attribute[] attrs = new Attribute[count];
-        
+
         for (int i = 0; i < count; i++) {
             String name = constPool.getUtf(dis.readU2()).get();
-            Class<? extends Attribute> resolved = resolve(name);            
-            
+            Class<? extends Attribute> resolved = resolve(name);
+
             // Считать данные принадлежащие
             // аттрибуту.
             int dataLen = (int)dis.readU4();
             byte[] data = new byte[dataLen];
             dis.read(data);
-            
+
             // Этот аттрибут не определён в спецификации, пропускаем его.
             if (resolved == null) {
                 attrs[i] = new GenericAttribute(name);
                 continue;
             }
-            
+
             // Засумонить аттрибут из соответсвующего
             // класса.
             Attribute attribute = null;
@@ -67,26 +78,26 @@ public class AttributeReader {
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-            
+
             // Считать аттрибут.
             attribute.read(constPool, wrap(data));
             attrs[i] = attribute;
         }
-        
+
         return new Attributes(Arrays.asList(attrs));
     }
-    
+
     /**
-     * Обвернуть данные для считывания в 
+     * Обвернуть данные для считывания в
      * поток.
      * @param data
-     * @return 
+     * @return
      */
     private ClassFileReader wrap(byte[] data) {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
         return new ClassFileReader(bais);
     }
-    
+
     private Class<? extends Attribute> resolve(String name) {
         if (mapping.containsKey(name)) {
             return mapping.get(name);
@@ -105,11 +116,20 @@ public class AttributeReader {
         mapping.put("SourceFile", SourceFile.class);
         mapping.put("Synthetic", Synthetic.class);
     }
-    
+
+    /**
+     * Привязать имя к типу аттрибута.
+     * @param name Имя.
+     * @param c Тип аттрибута.
+     */
     public void bind(String name, Class<? extends Attribute> c) {
         mapping.put(name, c);
     }
-    
+
+    /**
+     * Отвязать заданное имя.
+     * @param name Имя.
+     */
     public void unbind(String name) {
         mapping.remove(name);
     }

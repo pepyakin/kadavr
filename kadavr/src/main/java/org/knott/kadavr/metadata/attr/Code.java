@@ -21,7 +21,7 @@ public class Code extends Attribute {
      * Возвратить массив с байткодом
      * реализующим метод, аттрибутом которого
      * является данный экземпляр.
-     * @return 
+     * @return
      */
     public byte[] getCode() {
         return code;
@@ -29,9 +29,9 @@ public class Code extends Attribute {
 
     /**
      * Возратить количество локальных
-     * слотов определённых в данном 
+     * слотов определённых в данном
      * методе.
-     * @return 
+     * @return
      */
     public int getMaxLocals() {
         return maxLocals;
@@ -41,34 +41,34 @@ public class Code extends Attribute {
      * Возратить количество слотов
      * стека необходимых для выполнения данного
      * метода.
-     * @return 
+     * @return
      */
     public int getMaxStack() {
         return maxStack;
     }
-    
+
     /**
      * Возратить количество записей
-     * в таблице исключений данного 
+     * в таблице исключений данного
      * аттрибута.
      */
     public int getExceptionCount() {
         return exceptions.length;
     }
-    
+
     /**
      * Возратить запись из таблицы исключений.
      */
     public ExceptionEntry getException(int i) {
         return exceptions[i];
     }
-    
+
     public Attributes getAttributes() {
         return attributes;
     }
-    
+
     @Override
-    public void read(ConstPool pool, ClassFileReader dis) 
+    public void read(ConstPool pool, ClassFileReader dis)
             throws IOException {
         //Code_attribute {
         //    u2 attribute_name_index;
@@ -86,15 +86,15 @@ public class Code extends Attribute {
         //    u2 attributes_count;
         //    attribute_info attributes[attributes_count];
         //}
-        
+
         maxStack = dis.readU2();
         maxLocals = dis.readU2();
-        
+
         // Возможный баг.
         long codeLength = dis.readU4();
         code = new byte[(int)codeLength];
         dis.read(code);
-        
+
         // Прочитать все записи в таблице исключенй.
         int exceptionsLength = dis.readU2();
         exceptions = new ExceptionEntry[exceptionsLength];
@@ -103,7 +103,7 @@ public class Code extends Attribute {
             entry.read(dis);
             exceptions[i] = entry;
         }
-        
+
         AttributeReader reader = new AttributeReader(pool);
         attributes = reader.read(dis);
     }
@@ -112,9 +112,9 @@ public class Code extends Attribute {
     public String getName() {
         return NAME;
     }
-    
+
     /**
-     * Класс представляющий собой запись 
+     * Класс представляющий собой запись
      * в таблице исключений в аттрибуте <i>Code</i>.
      */
     public static class ExceptionEntry {
@@ -131,13 +131,13 @@ public class Code extends Attribute {
 
         public ExceptionEntry() {
         }
-        
+
         /**
          * Считать данные из потока.
          * @param dis
-         * @throws IOException 
+         * @throws IOException Если возникнет ошибка ввода вывода.
          */
-        public void read(ClassFileReader dis) 
+        public void read(ClassFileReader dis)
                 throws IOException {
             //u2 exception_table_length;
             //{

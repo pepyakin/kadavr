@@ -3,16 +3,22 @@ package org.knott.kadavr.metadata;
 import java.io.IOException;
 
 /**
- *
+ * Класс представляет собой описание
+ * элемента "тип и именя".
+ * 
  * @author Sergey
  */
 public class NameTypeItem extends ConstItem {
-    
+
+    /**
+     * Эта константа описывает тэг объектов данного типа.
+     * Эта константа имеет значение {@value}.
+     */
     public static final int TAG = ConstPool.TAG_NAMEANDTYPE;
-    
+
     int nameIndex;
     int descIndex;
-    
+
     private Utf8Item name;
     private Utf8Item descriptor;
 
@@ -31,7 +37,7 @@ public class NameTypeItem extends ConstItem {
         if (descriptor == null) {
             throw new NotLinkedException();
         }
-        
+
         return descriptor;
     }
 
@@ -39,7 +45,7 @@ public class NameTypeItem extends ConstItem {
         if (name == null) {
             throw new NotLinkedException();
         }
-        
+
         return name;
     }
 

@@ -5,23 +5,21 @@
 package org.knott.kadavr;
 
 import java.io.ByteArrayInputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import org.knott.kadavr.metadata.AType;
 import org.knott.kadavr.metadata.ClassFile;
 import org.knott.kadavr.metadata.ClassFileReader;
 import org.knott.kadavr.metadata.ClassItem;
-import org.knott.kadavr.metadata.ConstItem;
 import org.knott.kadavr.metadata.ConstPool;
 import org.knott.kadavr.metadata.ConstValueItem;
 import org.knott.kadavr.metadata.MemberItem;
-import org.knott.kadavr.metadata.MethodrefItem;
 import org.knott.kadavr.metadata.attr.Code;
 import org.knott.kadavr.tools.BytecodeParser;
 import org.knott.kadavr.tools.BytecodeVisitor;
 import org.knott.kadavr.tools.Opcode;
 
 /**
+ * Дизассемблер java байт кода.
  *
  * @author knott
  */
@@ -35,14 +33,22 @@ public class BytecodeDisasm {
     private BytecodeParser parser;
     private ConstPool pool;
 
+    /**
+     * Создать экземпляр {@link BytecodeDisasm дизассемблера байт кода}.
+     *
+     * @param writer Выходной поток.
+     * @param code Аттрибут кода.
+     * @param cf Файл класса.
+     */
     public BytecodeDisasm(IdentTextWriter writer, Code code, ClassFile cf) {
         this(new BytecodeFormatter(writer), code, cf);
     }
 
     /**
-     * Создать экземпляр дизассемблера байт кода.
-     * @param formatter
-     * @param code
+     * Создать экземпляр {@link BytecodeDisasm дизассемблера байт кода}.
+     *
+     * @param formatter Форматировщик байткода.
+     * @param code Аттрибут кода.
      */
     public BytecodeDisasm(BytecodeFormatter formatter, Code code, ClassFile cf) {
         this.formatter = formatter;
@@ -59,7 +65,7 @@ public class BytecodeDisasm {
 
     /**
      * Выполнить разбор кода.
-     * @throws IOException
+     * @throws IOException Если возникнет ошибка ввода вывода.
      */
     public void parse() throws IOException {
         formatter.writeLimitLocals(code.getMaxLocals());

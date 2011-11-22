@@ -5,29 +5,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Набор аттриубтов.
  *
  * @author Sergey
  */
 public class Attributes extends AbstractList<Attribute> {
 
     private List<Attribute> list;
-    
+
+    /**
+     * Создать экземпляр класса Attributes.
+     * @param list Исходный лист.
+     */
     public Attributes(List<Attribute> list) {
         if (list == null) {
             throw new NullPointerException("list can't be null");
         }
         this.list = list;
     }
-    
+
+    /**
+     * Создать экземпляр класса Attributes.
+     */
     public Attributes() {
         this(new ArrayList<Attribute>());
     }
-    
+
     /**
-     * Содержится ли в списке 
+     * Содержится ли в списке
      * заданный аттрибут?
      * @param attrName
-     * @return 
+     * @return
      */
     public boolean contains(String attrName) {
         for (Attribute attr : list) {
@@ -35,17 +43,17 @@ public class Attributes extends AbstractList<Attribute> {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     public <T extends Attribute> T get(String name) {
         for (Attribute attr : list) {
             if (attr.getName().equals(name)) {
                 return (T)attr;
             }
         }
-        
+
         return null;
     }
 
@@ -72,5 +80,5 @@ public class Attributes extends AbstractList<Attribute> {
     @Override
     public Attribute set(int index, Attribute element) {
         return list.set(index, element);
-    } 
+    }
 }

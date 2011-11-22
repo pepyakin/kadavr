@@ -10,13 +10,16 @@ import org.knott.kadavr.metadata.Utf8Item;
  * @author Sergey
  */
 public class LocalVariableTable extends Attribute {
-    
+
+    /**
+     * Имя данного аттрибута.
+     */
     public static final String NAME = "LocalVariableTable";
 
     private Local[] locals;
-    
+
     @Override
-    public void read(ConstPool pool, ClassFileReader dis) 
+    public void read(ConstPool pool, ClassFileReader dis)
             throws IOException {
         //LocalVariableTable_attribute {
         //    u2 attribute_name_index;
@@ -28,10 +31,10 @@ public class LocalVariableTable extends Attribute {
         //        u2 descriptor_index;
         //        u2 index;
         //    } local_variable_table[local_variable_table_length];
-        //}	
+        //}
         int len = dis.readU2();
         locals = new Local[len];
-        
+
         for (int i = 0; i < len; i++) {
             Local local = new Local();
             local.read(pool, dis);
@@ -43,9 +46,9 @@ public class LocalVariableTable extends Attribute {
     public String getName() {
         return NAME;
     }
-    
+
     public static class Local {
-        
+
         private int startPC;
         private int length;
         private Utf8Item name;
@@ -71,15 +74,15 @@ public class LocalVariableTable extends Attribute {
         public int getStartPC() {
             return startPC;
         }
-        
-        public void read(ConstPool pool, ClassFileReader dis) 
+
+        public void read(ConstPool pool, ClassFileReader dis)
             throws IOException {
             startPC = dis.readU2();
             length = dis.readU2();
-            
+
             name = pool.getUtf(dis.readU2());
             descriptor = pool.getUtf(dis.readU2());
-            
+
             index = dis.readU2();
         }
     }

@@ -9,7 +9,8 @@ import java.io.Serializable;
 import org.knott.kadavr.metadata.ClassFile;
 
 /**
- *
+ * Точка входа в приложение. Главный класс.
+ * 
  * @author Sergey
  */
 public class App implements Serializable {

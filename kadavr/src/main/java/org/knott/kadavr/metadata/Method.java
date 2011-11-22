@@ -4,6 +4,8 @@ import org.knott.kadavr.AccessFlag;
 import org.knott.kadavr.metadata.attr.Code;
 
 /**
+ * Класс представляющий собой декларацию
+ * метода.
  *
  * @author Sergey
  */

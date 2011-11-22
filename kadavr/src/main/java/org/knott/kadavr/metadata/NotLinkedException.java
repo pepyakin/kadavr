@@ -7,18 +7,34 @@ package org.knott.kadavr.metadata;
  */
 public class NotLinkedException extends IllegalStateException {
 
+    /**
+     * Создать экземпляр {@link NotLinkedException}.
+     * @param cause
+     */
     public NotLinkedException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Создать экземпляр {@link NotLinkedException}.
+     * @param message
+     * @param cause
+     */
     public NotLinkedException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Создать экземпляр {@link NotLinkedException}.
+     * @param s
+     */
     public NotLinkedException(String s) {
         super(s);
     }
 
+    /**
+     * Создать экземпляр {@link NotLinkedException}.
+     */
     public NotLinkedException() {
     }
 }

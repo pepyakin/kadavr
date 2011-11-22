@@ -6,19 +6,25 @@ import java.util.Map;
 import static org.knott.kadavr.metadata.ConstPool.*;
 
 /**
+ * Класс представляет услуги по диспетчеризации
+ * и выдаче соответсвующим тегам соответсвующие типы
+ * элементов пула.
  *
  * @author Sergey
  */
 public class ItemDispatcher {
-    
+
     private Map<Integer, Class<? extends ConstItem>> bindings;
 
+    /**
+     * Создать экземпляр {@link ItemDispatcher}.
+     */
     public ItemDispatcher() {
         bindings = new HashMap<Integer, Class<? extends ConstItem>>();
     }
-    
+
     /**
-     * Зарегистрировать тегу соответствующий 
+     * Зарегистрировать тегу соответствующий
      * считыватель.
      * @param tag
      * @param reader Экземпляр считывателя.
@@ -27,27 +33,31 @@ public class ItemDispatcher {
         if (reader == null) {
             throw new NullPointerException();
         }
-        
+
         if (bindings.containsKey(tag)) {
             throw new RuntimeException("already binded tag");
         }
-        
+
         bindings.put(tag, reader);
     }
-    
+
+    /**
+     * Удалить связку.
+     * @param tag
+     */
     public void unbind(int tag) {
         Integer key = tag;
-        
+
         if (bindings.containsKey(key)) {
             bindings.remove(key);
         }
     }
-    
+
     /**
      * Запросить считывателя по заданному
      * тегу.
      * @param tag Тег структуры которую нужно возвратить.
-     * @return 
+     * @return
      */
     public Class<? extends ConstItem> dispatch(int tag) {
         Class<? extends ConstItem> r = bindings.get(tag);
@@ -55,16 +65,22 @@ public class ItemDispatcher {
             // TODO: поменять на другое исключение
             throw new RuntimeException("tag not found");
         }
-        
+
         return r;
     }
-    
+
+    /**
+     * Возвратить реализацию диспетчера по-умолчанию с уже
+     * зарегистрированными типами элементов соответвующим спецификации
+     * Java 2nd edition.
+     * @return Созданный диспетчер элементов константного пула.
+     */
     public static ItemDispatcher getDefaultDispatcher() {
         ItemDispatcher dispatch = new ItemDispatcher();
         dispatch.defaultBind();
         return dispatch;
     }
-    
+
     private void defaultBind() {
         bind(TAG_CLASS, ClassItem.class);
         bind(TAG_DOUBLE, DoubleItem.class);

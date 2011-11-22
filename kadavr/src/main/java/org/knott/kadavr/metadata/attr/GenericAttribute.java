@@ -13,14 +13,18 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author knott
  */
 public class GenericAttribute extends Attribute {
-    
+
     private String name;
 
+    /**
+     * Представляет собой нераспознанный аттрибут.
+     * @param name
+     */
     public GenericAttribute(String name) {
         if (name == null) {
             throw new IllegalArgumentException();
         }
-        
+
         this.name = name;
     }
 
@@ -33,5 +37,5 @@ public class GenericAttribute extends Attribute {
     public String getName() {
         return name;
     }
-    
+
 }

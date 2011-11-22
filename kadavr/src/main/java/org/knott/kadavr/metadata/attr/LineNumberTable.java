@@ -9,18 +9,22 @@ import org.knott.kadavr.metadata.ConstPool;
  * @author Sergey
  */
 public class LineNumberTable extends Attribute {
+
+    /**
+     * Имя данного аттрибута.
+     */
     public static final String NAME = "LineNumberTable";
 
     private LineNumber[] lineMap;
-    
+
     public int count() {
         return lineMap.length;
     }
-    
+
     public LineNumber get(int i) {
         return lineMap[i];
     }
-    
+
     @Override
     public void read(ConstPool pool, ClassFileReader dis)
             throws IOException {
@@ -28,13 +32,13 @@ public class LineNumberTable extends Attribute {
         //    u2 attribute_name_index;
         //    u4 attribute_length;
         //    u2 line_number_table_length;
-        //    {  u2 start_pc;	     
-        //       u2 line_number;	     
+        //    {  u2 start_pc;
+        //       u2 line_number;
         //    } line_number_table[line_number_table_length];
         //}
         int len = dis.readU2();
         lineMap = new LineNumber[len];
-        
+
         for (int i = 0; i < len; i++) {
             LineNumber lineNo = new LineNumber();
             lineNo.read(dis);

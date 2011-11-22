@@ -15,6 +15,11 @@ public class Disassembler {
     IdentTextWriter writer;
     ClassFile classFile;
 
+    /**
+     * Создать экземпляр дизассемблера.
+     * @param writer Поток символов для вывода.
+     * @param classFile Класс который будет разобран.
+     */
     public Disassembler(IdentTextWriter writer, ClassFile classFile) {
         this.writer = writer;
         this.classFile = classFile;

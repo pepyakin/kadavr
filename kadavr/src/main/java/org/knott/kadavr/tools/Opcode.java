@@ -1,9 +1,12 @@
 /**
  * AUTO-GENERATED FILE. DO NOT EDIT.
  */
- 
+
 package org.knott.kadavr.tools;
- 
+
+/**
+ * @unpublished
+ */
 public enum Opcode {
 NOP(0,"nop",0),
 ACONST_NULL(1,"aconst_null",0),
@@ -227,7 +230,7 @@ public static Opcode getOpcode(int opcodeValue) {
             return opcode;
         }
     }
-    
+
     return null;
 }
 }

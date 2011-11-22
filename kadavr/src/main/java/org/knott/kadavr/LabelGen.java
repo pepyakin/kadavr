@@ -1,17 +1,19 @@
 package org.knott.kadavr;
 
 /**
+ * Класс, предоставляющий услуги форматирования
+ * строки метки для определённого указателя кода.
  *
  * @author Sergey
  */
 public class LabelGen {
-    
+
     /**
      * Количество нибблов - т.е. полубайтов.
      * Пусть PC имеет тип short.
      */
     private final int NIBBLE_COUNT = (2 * 2);
-    
+
     /**
      * Возвращает имя метки для данного
      * смещения в коде.
@@ -21,7 +23,7 @@ public class LabelGen {
     public String genLabelName(int pc) {
         return "L" + getLeadingZeroStr(pc);
     }
-    
+
     private String getLeadingZeroStr(int pc) {
         StringBuilder sb = new StringBuilder(NIBBLE_COUNT);
         sb.append(Integer.toHexString(pc).toUpperCase());

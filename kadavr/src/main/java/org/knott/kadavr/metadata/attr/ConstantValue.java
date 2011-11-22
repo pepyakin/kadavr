@@ -10,6 +10,10 @@ import org.knott.kadavr.metadata.ConstValueItem;
  * @author Sergey
  */
 public class ConstantValue extends Attribute {
+
+    /**
+     * Имя данного аттрибута.
+     */
     public static final String NAME = "ConstantValue";
 
     private ConstValueItem item;
@@ -17,9 +21,9 @@ public class ConstantValue extends Attribute {
     public ConstValueItem getItem() {
         return item;
     }
-    
+
     @Override
-    public void read(ConstPool pool, ClassFileReader dis) 
+    public void read(ConstPool pool, ClassFileReader dis)
             throws IOException {
         int idx = dis.readU2();
         item = pool.get(idx);

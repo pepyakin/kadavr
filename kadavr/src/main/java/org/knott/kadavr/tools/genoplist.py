@@ -12,15 +12,15 @@ def findMnemonic(line):
 	mIdx = line.rfind(' ')
 	if mIdx == -1:
 		return ""
-	
+
 	mnemonic = line[mIdx + 1:]
 	return mnemonic.strip()
-	
+
 def findOpcode(line):
 	"""Parses specified line and returns operation code."""
 	splitted = line.split()
 	return int(splitted[0])
-	
+
 def findSize(line):
 	splitted = line.split()
 	return int(splitted[2])
@@ -36,9 +36,12 @@ autogenHeader = """/**
  */""";
 
 genFile.write(autogenHeader + """
- 
+
 package org.knott.kadavr.tools;
- 
+
+/**
+ * @unpublished
+ */
 public enum Opcode {
 """)
 
@@ -48,6 +51,9 @@ package org.knott.kadavr.tools;
 import java.io.IOException;
 import org.knott.kadavr.metadata.ClassFileReader;
 
+/**
+ * @unpublished
+ */
 public abstract class BytecodeVisitor {
 
 public void preVisit(int pc, Opcode opcode) throws IOException {}
@@ -60,6 +66,9 @@ package org.knott.kadavr.tools;
 import java.io.*;
 import org.knott.kadavr.metadata.ClassFileReader;
 
+/**
+ * @unpublished
+ */
 public class BytecodeParser {
 
 private BytecodeVisitor visitor;
@@ -79,7 +88,7 @@ public void parse() throws IOException {
             visitor.preVisit(pc, opcode);
             byte[] operandData = new byte[opcode.opSize];
             reader.read(operandData);
-            
+
             ClassFileReader isolated = new ClassFileReader(new ByteArrayInputStream(operandData));
             switch (opcode) {
 
@@ -94,13 +103,13 @@ for line in opcodeFile:
 	else:
 		genFile.write(',\n')
 
-	
-	
+
+
 	mnemonic = findMnemonic(line)
 	opcode = findOpcode(line)
 	opSize = findSize(line)
 	enumName = mnemonic.upper()
-	
+
 	genFile.write(enumName)
 	genFile.write('(')
 	genFile.write(str(opcode))
@@ -109,14 +118,14 @@ for line in opcodeFile:
 	genFile.write('",')
 	genFile.write(str(opSize))
 	genFile.write(')')
-	
+
 	methodName = mnemonic
 	methodName = "visit" + methodName[0].upper() + methodName[1:]
-	
+
 	bcVisit.write("""
 public void %s(ClassFileReader r) throws IOException{}
 	""" % methodName)
-	
+
 	bcParser.write("""
 	case %s: visitor.%s(isolated);break;
 	""" % (enumName, methodName))
@@ -142,7 +151,7 @@ public static Opcode getOpcode(int opcodeValue) {
             return opcode;
         }
     }
-    
+
     return null;
 }
 }
@@ -152,7 +161,7 @@ bcVisit.write("""
 }""")
 
 bcParser.write("""
-                
+
             }
 			visitor.postVisit(opcode);
                         pc += 1 + opcode.opSize;
